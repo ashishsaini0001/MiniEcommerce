@@ -1,0 +1,91 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ product.name }} | MiniMart</title>
+
+    <link rel="stylesheet"
+          href="{% static 'shop/css/style.css' %}">
+</head>
+
+<body>
+
+<header>
+    <h1>🛒 MiniMart</h1>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="{% url 'cart' %}">
+            🛒 Cart
+        </a>
+    </nav>
+</header>
+
+
+<main>
+
+    <section class="product-detail">
+
+        <div class="product-detail-image">
+
+            {% if product.image %}
+                <img src="{{ product.image.url }}"
+                     alt="{{ product.name }}">
+            {% else %}
+                <div class="no-image">
+                    No Image
+                </div>
+            {% endif %}
+
+        </div>
+
+
+        <div class="product-detail-info">
+
+            <h2>{{ product.name }}</h2>
+
+            <p class="detail-price">
+                ₹{{ product.price }}
+            </p>
+
+            <p>
+                {{ product.description }}
+            </p>
+
+            <p>
+                <strong>Stock:</strong>
+                {{ product.stock }}
+            </p>
+
+            {% if product.stock > 0 %}
+
+                <a href="{% url 'add_to_cart' product.id %}"
+                   class="add-cart-btn">
+                    Add to Cart
+                </a>
+
+            {% else %}
+
+                <p class="out-of-stock">
+                    Out of Stock
+                </p>
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer>
+    <p>©️ 2026 MiniMart. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

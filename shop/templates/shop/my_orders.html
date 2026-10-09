@@ -1,0 +1,133 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MiniMart | My Orders</title>
+
+    <link rel="stylesheet"
+          href="{% static 'shop/css/style.css' %}">
+</head>
+
+<body>
+
+<header>
+    <h1>🛒 MiniMart</h1>
+
+    <nav>
+        <a href="/">Home</a>
+
+        <a href="{% url 'cart' %}">
+            🛒 Cart
+        </a>
+
+        <a href="{% url 'my_orders' %}">
+            My Orders
+        </a>
+
+        <a href="{% url 'logout' %}">
+            Logout
+        </a>
+    </nav>
+</header>
+
+
+<main>
+
+    <section class="products-section">
+
+        <h2>My Orders</h2>
+
+        {% if orders %}
+
+            {% for order in orders %}
+
+                <div class="order-card">
+
+                    <h3>
+                        Order #{{ order.id }}
+                    </h3>
+
+                    <p>
+                        Date:
+                        {{ order.created_at|date:"d M Y, h:i A" }}
+                    </p>
+
+                    <p>
+                        <strong>Status:</strong>
+                        {{ order.get_status_display }}
+                    </p>
+
+                    <p>
+                        Name:
+                        {{ order.name }}
+                    </p>
+
+                    <p>
+                        Address:
+                        {{ order.address }},
+                        {{ order.city }}
+                    </p>
+
+                    <p>
+                        Mobile:
+                        {{ order.mobile }}
+                    </p>
+
+                    <hr>
+
+                    <h4>Products</h4>
+
+                    {% for item in order.items.all %}
+
+                        <div class="order-item">
+
+                            <strong>
+                                {{ item.product.name }}
+                            </strong>
+
+                            <span>
+                                × {{ item.quantity }}
+                            </span>
+
+                            <span>
+                                ₹{{ item.price }}
+                            </span>
+
+                        </div>
+
+                    {% endfor %}
+
+                    <h3>
+                        Total:
+                        ₹{{ order.total_amount }}
+                    </h3>
+
+                </div>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>You haven't placed any orders yet.</p>
+
+            <a href="/" class="add-cart-btn">
+                Start Shopping
+            </a>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+
+<footer>
+    <p>©️ 2026 MiniMart. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

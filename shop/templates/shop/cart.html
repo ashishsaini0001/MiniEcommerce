@@ -1,0 +1,387 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MiniMart | Cart</title>
+
+    <link rel="stylesheet" href="{% static 'shop/css/style.css' %}">
+</head>
+
+<body>
+
+    <style>
+        /* =========================
+   MiniMart Cart Page
+   ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #222;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: #111827;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+        }
+
+        header h1 {
+            font-size: 28px;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #22c55e;
+        }
+
+
+        /* Main */
+        main {
+            width: 90%;
+            max-width: 1000px;
+            margin: 50px auto;
+        }
+
+        .products-section {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .products-section>h2 {
+            font-size: 28px;
+            margin-bottom: 25px;
+            color: #111827;
+        }
+
+
+        /* Cart List */
+        .cart-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+
+        /* Individual Cart Item */
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding: 20px;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            background: #fafafa;
+            transition: 0.3s;
+        }
+
+        .cart-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+        }
+
+
+        /* Product Image */
+        .cart-item img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 1px solid #ddd;
+            background: white;
+        }
+
+
+        /* Cart Information */
+        .cart-info {
+            flex: 1;
+        }
+
+        .cart-info h3 {
+            font-size: 21px;
+            margin-bottom: 12px;
+            color: #111827;
+        }
+
+        .cart-info p {
+            margin: 7px 0;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .cart-info p:nth-child(2) {
+            color: #16a34a;
+            font-weight: 600;
+        }
+
+        .cart-info p:last-child {
+            font-size: 18px;
+            font-weight: bold;
+            color: #111827;
+        }
+
+
+        /* Cart Total */
+        .products-section>h2:last-of-type {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #eee;
+            text-align: right;
+            color: #111827;
+        }
+
+
+        /* Checkout Button */
+        button {
+            display: block;
+            margin: 20px 0 0 auto;
+            padding: 13px 30px;
+            border: none;
+            border-radius: 8px;
+            background: #16a34a;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #15803d;
+            transform: translateY(-2px);
+        }
+
+
+        /* Empty Cart */
+        .products-section>p {
+            text-align: center;
+            padding: 40px 0 20px;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .add-cart-btn {
+            display: block;
+            width: fit-content;
+            margin: 10px auto 20px;
+            padding: 13px 25px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .add-cart-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+
+        /* Footer */
+        footer {
+            margin-top: 60px;
+            padding: 20px;
+            text-align: center;
+            background: #111827;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+
+        /* =========================
+   Responsive Design
+   ========================= */
+
+        @media (max-width: 650px) {
+
+            header {
+                padding: 15px 5%;
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            header h1 {
+                font-size: 24px;
+            }
+
+            nav {
+                gap: 18px;
+            }
+
+            main {
+                width: 94%;
+                margin: 25px auto;
+            }
+
+            .products-section {
+                padding: 20px;
+            }
+
+            .products-section>h2 {
+                font-size: 24px;
+            }
+
+            .cart-item {
+                align-items: flex-start;
+                gap: 15px;
+                padding: 15px;
+            }
+
+            .cart-item img {
+                width: 85px;
+                height: 85px;
+            }
+
+            .cart-info h3 {
+                font-size: 17px;
+            }
+
+            .cart-info p {
+                font-size: 14px;
+            }
+
+            .cart-info p:last-child {
+                font-size: 16px;
+            }
+
+            .products-section>h2:last-of-type {
+                font-size: 20px;
+            }
+
+            button {
+                width: 100%;
+                margin-top: 18px;
+            }
+        }
+    </style>
+
+    <header>
+        <h1>🛒 MiniMart</h1>
+
+        <nav>
+            <a href="/">Home</a>
+            <a href="{% url 'cart' %}">Cart</a>
+        </nav>
+    </header>
+
+
+    <main>
+
+        <section class="products-section">
+
+            <h2>Your Cart</h2>
+
+            {% if cart_items %}
+
+            <div class="cart-list">
+
+                {% for item in cart_items %}
+
+                <div class="cart-item">
+
+                    {% if item.product.image %}
+                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                    {% endif %}
+
+                    <div class="cart-info">
+
+                        <h3>{{ item.product.name }}</h3>
+
+                        <p>
+                            Price:
+                            ₹{{ item.product.price }}
+                        </p>
+
+                        <p>
+                            Quantity:
+                            {{ item.quantity }}
+                        </p>
+
+                        <p>
+                            Total:
+                            ₹{{ item.total_price }}
+                        </p>
+                        <a href="{% url 'remove_from_cart' item.id %}">remove</a>
+                        <div class="quantity-control">
+
+                            <a href="{% url 'update_cart' item.id 'decrease' %}">
+                                −
+                            </a>
+
+                            <span>{{ item.quantity }}</span>
+
+                            <a href="{% url 'update_cart' item.id 'increase' %}">
+                                +
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+            <h2>Cart Total: ₹{{ total }}</h2>
+
+          <button>
+                <a href="{% url 'checkout' %}">Checkout</a>
+            </button>
+
+            {% else %}
+
+            <p>Your cart is empty.</p>
+
+            <a href="/" class="add-cart-btn">
+                Continue Shopping
+            </a>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        <p>©️ 2026 MiniMart. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>
